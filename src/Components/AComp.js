@@ -3,21 +3,16 @@ import { connect } from 'react-redux'
 import { increment, incrementByTwo } from '../actions'
 
 
-ACompParent = () => {
-
+const ACompParent = () => {
   return <AComp increment={incrementByTwo} />
-
 }
 
-ACompParent2 = () => {
-
-
-
+const ACompParent2 = () => {
   return <AComp increment={increment} />
-
 }
 
-const AComp = ({ increment, counter }) => {
+const AComp = ({ incrementByTwo, increment, counter, appType }) => {
+  const onClick = (appType === '1') ? increment : incrementByTwo;
 
   return (
     <div className="A">
@@ -35,4 +30,4 @@ const mapStateToProps = state => ({
   appType: state.appType
 })
 
-export default connect(mapStateToProps, { increment, incrementByTwo })(ACompParent);
+export default connect(mapStateToProps, { increment, incrementByTwo })(AComp);
