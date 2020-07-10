@@ -5,45 +5,21 @@ import FirstApp from './FirstApp';
 import SecondApp from './SecondApp'
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { createStore } from 'redux'
-import AllReducers from './Reducers/index'
+import reducers from './reducers'
+import { Provider } from 'react-redux';
+import { setAppType } from './actions';
+
+const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 ReactDOM.render(
-  <BrowserRouter>
-    <div>
-      <div>
-        <Link to="/App1">App 1</Link>
-      </div>
-      <div>
-        <Link to="/App2">App 2</Link>
-      </div>
-    </div>
-    <Switch>
-      <Route path="/App1" component={FirstApp}></Route>
-      <Route path="/App2" component={SecondApp}></Route>
-    </Switch>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <button onClick={() => store.dispatch(setAppType('1'))}>App 1</button>
+    <button onClick={() => store.dispatch(setAppType('2'))}>App 2</button>
+    <FirstApp />
+  </Provider>,
   document.getElementById('root')
 );
 
 // Store 
-const store = createStore(AllReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
-// Actions
-const increment = () => {
-  return {
-    type: 'INCREMENT'
-  }
-}
-
-const decrement = () => {
-  return {
-    type: 'DECREMENT'
-  }
-}
-
-const text = () => {
-  return {
-    type: 'TEXT'
-  }
-}
 
